@@ -9,6 +9,7 @@ type Props = {
   posts: Post[];
 };
 
+//ISRで対応
 export async function getStaticProps() {
   const res = await fetch("http://localhost:3001/api/v1/posts");
   const posts = await res.json()
@@ -33,17 +34,23 @@ export default function Home({ posts }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
-        {posts.map((post: Post) => (
-          <div key={post.id} className={styles.postCard}>
-            <Link href={`posts/${post.id}`} className={styles.postCardBox}>
-              <h2>{post.title}</h2>
-            </Link>
-            <p>{post.content}</p>
-            <button className={styles.editButton}>Edit</button>
-            <button className={styles.deleteButton}>Delete</button>
-          </div>
-        ))}
+      <div className={styles.homecontainer}>
+        <h2>Rails & Next.js Blog</h2>
+        <Link href="/create-post" className={styles.createButton}>
+          Create new Post
+        </Link>
+        <div>
+          {posts.map((post: Post) => (
+            <div key={post.id} className={styles.postCard}>
+              <Link href={`posts/${post.id}`} className={styles.postCardBox}>
+                <h2>{post.title}</h2>
+              </Link>
+              <p>{post.content}</p>
+              <button className={styles.editButton}>Edit</button>
+              <button className={styles.deleteButton}>Delete</button>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   )
