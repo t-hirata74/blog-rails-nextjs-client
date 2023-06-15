@@ -2,10 +2,27 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import { Post } from '@/src/types';
 
-const inter = Inter({ subsets: ['latin'] })
+type Props = {
+  posts: Post[];
+};
 
-export default function Home() {
+export async function getStaticProps() {
+  const res = await fetch("http://localhost:3001/api/v1/posts");
+  const posts = await res.json()
+
+  console.log(posts)
+
+  return {
+    props: {
+      posts,
+    },
+    revalidate: 60 * 60 * 24.
+  };
+}
+
+export default function Home({ posts }: Props) {
   return (
     <>
       <Head>
@@ -15,6 +32,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <div>
+        {posts.map((post: Post) => (
+          <div key={post.id} className={styles.postCard}></div>
+        ))}
+      </div>
     </>
   )
 }
