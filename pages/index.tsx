@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import { Post } from '@/src/types';
+import Link from 'next/link';
 
 type Props = {
   posts: Post[];
@@ -34,7 +35,14 @@ export default function Home({ posts }: Props) {
 
       <div>
         {posts.map((post: Post) => (
-          <div key={post.id} className={styles.postCard}></div>
+          <div key={post.id} className={styles.postCard}>
+            <Link href={`posts/${post.id}`} className={styles.postCardBox}>
+              <h2>{post.title}</h2>
+            </Link>
+            <p>{post.content}</p>
+            <button className={styles.editButton}>Edit</button>
+            <button className={styles.deleteButton}>Delete</button>
+          </div>
         ))}
       </div>
     </>
