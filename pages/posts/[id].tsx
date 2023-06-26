@@ -1,5 +1,6 @@
 import { Post } from "src/types";
 import React from 'react'
+import { useRouter } from "next/router";
 
 type Props = {
     post: Post;
@@ -35,6 +36,12 @@ export async function getStaticProps({params}: {params: {id: string}}) {
 }
 
 const Post = () => {
+  const router = useRouter()
+  
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
+  
   return <div>詳細ページです</div>
 }
 
