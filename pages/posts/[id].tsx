@@ -1,6 +1,7 @@
 import { Post } from "src/types";
 import React from 'react'
 import { useRouter } from "next/router";
+import styles from '../../styles/Post.module.css'
 
 type Props = {
     post: Post;
@@ -41,8 +42,14 @@ const Post = () => {
   if (router.isFallback) {
     return <div>Loading...</div>
   }
-  
-  return <div>詳細ページです</div>
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.title}>{post.title}</div>
+      <div className={styles.date}>{post.date}</div>
+      <p className={styles.content}>{post.content}</p>
+    </div>
+  )
 }
 
 export default Post;
