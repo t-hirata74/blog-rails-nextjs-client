@@ -15,10 +15,7 @@ export async function getStaticPaths() {
   }))
 
   return {
-    paths: [
-      // Object variant:
-      {params: {id: "/posts/"} },
-    ],
+    paths,
     fallback: true,
   };
 }
