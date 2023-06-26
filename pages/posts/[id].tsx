@@ -36,7 +36,7 @@ export async function getStaticProps({params}: {params: {id: string}}) {
   };
 }
 
-const Post = () => {
+const Post = ({post}: Props) => {
   const router = useRouter()
   
   if (router.isFallback) {
@@ -46,7 +46,7 @@ const Post = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>{post.title}</div>
-      <div className={styles.date}>{post.date}</div>
+      <div className={styles.date}>Posted on {post.created_at}</div>
       <p className={styles.content}>{post.content}</p>
     </div>
   )
